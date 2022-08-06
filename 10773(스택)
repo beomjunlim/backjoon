@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+class Stack
+{
+private:
+  int stack[100000];
+  int size;
+
+public:
+  Stack() { size = 0; }
+  int push(int x)
+  {
+    stack[size++] = x;
+    return 0;
+  }
+  int pop(int x)
+  {
+    x = stack[size--];
+    return 0;
+  }
+  int sumOfst()
+  {
+    int sum = 0;
+    for (int i = 0; i < size; i++)
+    {
+      sum += stack[i];
+    }
+    return sum;
+  }
+};
+
+int main()
+{
+  int k;
+  cin >> k;
+  Stack st;
+  int data;
+  for (int i = 0; i < k; i++)
+  {
+    cin >> data;
+    if (data == 0)
+      st.pop(data);
+    else
+    {
+      st.push(data);
+    }
+  }
+  cout << st.sumOfst() << endl;
+}
