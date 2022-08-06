@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+class Stack
+{
+private:
+  int stack[100000];
+  int size;
+
+public:
+  Stack() { size = 0; }
+  void push(int data)
+  {
+    stack[size++] = data;
+  }
+  bool empty()
+  {
+    if (size == 0)
+      return true;
+    else
+      return false;
+  }
+  int pop()
+  {
+    if (size == 0)
+      return -1;
+    else
+    {
+      size -= 1;
+      return stack[size];
+    }
+  }
+  int top()
+  {
+    if (size == 0)
+      return -1;
+    else
+      return stack[size - 1];
+  }
+  int getsize()
+  {
+    return size;
+  }
+};
+
+int main()
+{
+  int n;
+  cin >> n;
+  Stack st;
+  for (int i = 0; i < n; i++)
+  {
+    string cmd;
+    cin >> cmd;
+    if (cmd == "push")
+    {
+      int data;
+      cin >> data;
+      st.push(data);
+    }
+    else if (cmd == "pop")
+    {
+      cout << st.pop() << endl;
+    }
+    else if (cmd == "size")
+      cout << st.getsize() << endl;
+    else if (cmd == "empty")
+      cout << st.empty() << endl;
+    else if (cmd == "top")
+      cout << st.top() << endl;
+  }
+}
