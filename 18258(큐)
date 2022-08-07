@@ -1,0 +1,90 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Queue
+{
+private:
+  int *que;
+  int size, front, rear, num;
+
+public:
+  Queue(int size) : size(size)
+  {
+    que = new int[size];
+    front = rear = num = 0;
+  }
+  bool empty()
+  {
+    if (num == 0)
+      return true;
+    else
+      return false;
+  }
+  void push(int x)
+  {
+    num++;
+    que[rear++] = x;
+    if (size == rear)
+      rear = 0;
+  }
+  void pop()
+  {
+    if (num == 0)
+      cout << "-1" <<"\n";
+    else
+    {
+      cout << que[front] <<"\n";
+      front += 1;
+      num -= 1;
+    }
+  }
+  int Size()
+  {
+    return num;
+  }
+  void Front()
+  {
+    if (num == 0)
+      cout << "-1" <<"\n";
+    else
+      cout << que[front] <<"\n";
+  }
+  void back()
+  {
+    if (num == 0)
+      cout << "-1" <<"\n";
+    else
+      cout << que[rear - 1] <<"\n";
+  }
+};
+
+int main()
+{
+  cin.tie(NULL);
+  ios::sync_with_stdio(false);
+  Queue q(1000000);
+  int num;
+  cin >> num;
+  string str;
+  for (int i = 0; i < num; i++)
+  {
+    cin >> str;
+    if (str == "push")
+    {
+      int x;
+      cin >> x;
+      q.push(x);
+    }
+    if (str == "pop")
+      q.pop();
+    if (str == "front")
+      q.Front();
+    if (str == "back")
+      q.back();
+    if (str == "size")
+      cout << q.Size() <<"\n";
+    if (str == "empty")
+      cout << q.empty() <<"\n";
+  }
+}
