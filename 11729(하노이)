@@ -1,0 +1,27 @@
+//cout,cin은 printf,scanf보다 느려서 
+#include <cstdio>
+#include <cmath>
+using namespace std;
+
+void hanoi(int n, int a, int b, int c)
+{
+  if (n == 1)
+    printf("%d %d\n", a, c);
+
+  else
+  {
+    hanoi(n - 1, a, c, b);
+    printf("%d %d\n", a, c);
+    hanoi(n - 1, b, a, c);
+  }
+}
+
+int main()
+{
+  int n;
+  int k = 0;
+  scanf("%d", &n);
+  k = (pow(2, n) - 1);
+  printf("%d\n", k);
+  hanoi(n, 1, 2, 3);
+}
