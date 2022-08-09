@@ -1,0 +1,40 @@
+//메모리 초과
+#include <iostream>
+using namespace std;
+
+void bubble(int a[], int n)
+{
+  for (int i = 0; i < n - 1; i++)
+  {
+    for (int j = n - 1; j > i; j--)
+    {
+      if (a[j - 1] > a[j])
+      {
+        int temp = a[j - 1];
+        a[j - 1] = a[j];
+        a[j] = temp;
+      }
+    }
+  }
+}
+
+int main()
+{
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+  int n;
+  int *x;
+  cin >> n;
+  x = new int[n];
+  for (int i = 0; i < n; i++)
+  {
+    cin >> x[i];
+  }
+  bubble(x, n);
+  for (int i = 0; i < n; i++)
+  {
+    cout << x[i] << "\n";
+  }
+  delete[] x;
+}
