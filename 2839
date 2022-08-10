@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+  int g;
+  int sum = 0;
+  cin >> g;
+  int a, b;
+  a = g / 5;
+  while (1)
+  {
+    if (a < 0)
+    {
+      cout << "-1" << endl;
+      return 0;
+    }
+    if ((g - (5 * a)) % 3 == 0)
+    {
+      b = (g - (5 * a)) / 3;
+      break;
+    }
+    else
+      a--;
+  }
+  cout << a + b << endl;
+}
