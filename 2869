@@ -1,0 +1,17 @@
+//반복문 이용시 시간초과
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+  int a, b, v;
+  cin >> a;
+  cin >> b;
+  cin >> v;
+  int day = 1;
+  day += (v - a) / (a - b);
+  if ((v - a) % (a - b) != 0)
+    day++;
+  cout << day << endl;
+}
