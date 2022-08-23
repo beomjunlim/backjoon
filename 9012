@@ -1,0 +1,34 @@
+#include<iostream>
+#include<stack>
+#include<cstring>
+using namespace std;
+
+bool Check(string str) {
+	int len = (int)str.length();
+	stack<char>s;
+	for (int i = 0; i < len; i++) {
+		char c = str[i];
+		if (c == '(') {
+			s.push(str[i]);
+		}
+		else {
+			if (!s.empty())
+				s.pop();
+			else
+				return false;
+		}
+	}
+	return s.empty();
+}
+int main() {
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		string str;
+		cin >> str;
+		if (Check(str))
+			cout << "YES" << endl;
+		else
+			cout << "NO" << endl;
+	}
+}
