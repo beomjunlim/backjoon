@@ -1,0 +1,35 @@
+//이중 for문을 두개로 나눠서 풀어봄
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	int n, k;
+	int sum,max;
+	sum = max = 0;
+	cin >> n; cin >> k;
+	vector<int>v;
+	for (int i = 0; i < n; i++) {
+		int a;
+		cin >> a;
+		v.push_back(a);
+	}
+	
+	for (int i = 0; i < k; i++) {
+		sum += v[i];
+	}
+	max = sum;
+	for (int i = k; i < n; i++) {
+		sum += v[i];
+		sum -= v[i - k];
+		if (max < sum)
+			max = sum;
+	}
+	cout << max << '\n';
+}
