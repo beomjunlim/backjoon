@@ -1,0 +1,44 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+bool binary(vector<int>&arr,int len, int target) {
+	int low = 0, hight = len - 1;
+	while (low <= hight) {
+		int mid = (low + hight) / 2;
+		if (target == arr[mid]) return true;
+		if (target < arr[mid])
+			hight = mid - 1;
+		if (target > arr[mid])
+			low = mid + 1;
+	}
+	return false;
+}
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	int n, m;
+	vector<int>v;
+	vector<int>w;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		int a;
+		cin >> a;
+		v.push_back(a);
+	}
+	sort(v.begin(), v.end());
+	cin >> m;
+	for (int i = 0; i < m; i++) {
+		int a;
+		cin >> a;
+		w.push_back(a);
+	}
+	for (int i = 0; i < m; i++) {
+		if (binary(v, n, w[i]))
+			cout << "1 ";
+		else
+			cout << "0 ";
+	}
+}
