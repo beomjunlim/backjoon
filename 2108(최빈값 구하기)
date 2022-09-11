@@ -1,0 +1,58 @@
+//continue 루프 몸체 끝으로 이동
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+
+bool cmp(pair<int, int> a, pair<int, int> b)
+{
+  if (a.second == b.second)
+    return a.first < b.first;
+  else
+    return a.second > b.second;
+}
+int main()
+{
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+  int n, a;
+  double sum = 0;
+  int arr[8001] = {0};
+  cin >> n;
+  vector<int> v;
+  vector<pair<int, int>> w;
+  for (int i = 0; i < n; i++)
+  {
+    cin >> a;
+    sum += a;
+    v.push_back(a);
+  }
+  cout << (int)round(sum / n) << '\n'; //
+  sort(v.begin(), v.end());
+  cout << v[n / 2] << '\n';
+  for (int i = 0; i < n; i++)
+  {
+    if (w.empty())
+    {
+      w.push_back({v[i], 1});
+      continue;
+    }
+    if (w.back().first == v[i])
+    {
+      pair<int, int> m = w.back();
+      m.second++;
+      w.pop_back();
+      w.push_back(m);
+    }
+    else
+      w.push_back({v[i], 1});
+  }
+  sort(w.begin(), w.end(), cmp);
+  if (w[0].second == w[1].second)
+    cout << w[1].first << '\n';
+  else
+    cout << w[0].first << '\n';
+  cout << v[n - 1] - v[0] << '\n';
+}
