@@ -1,0 +1,38 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	int n, m,k;
+	cin >> n; cin >> m;
+	vector<int>a;
+	vector<int>b;
+	for (int i = 0; i < n; i++) {
+		cin >> k;
+		a.push_back(k);
+	}
+	sort(a.begin(), a.end());
+	vector<int>a_backup(a);
+	for (int i = 0; i < m; i++) {
+		cin >> k;
+		b.push_back(k);
+	}
+	vector<int>b_backup(b);
+	sort(b.begin(), b.end());
+	for (int i = 0; i < n; i++) {
+		if (binary_search(b.begin(), b.end(), a_backup[i]) == true) {
+			a.pop_back();
+		}
+	}
+	for (int i = 0; i < m; i++) {
+		if (binary_search(a_backup.begin(), a_backup.end(), b_backup[i]) == true) {
+			b.pop_back();
+		}
+	}
+	cout << a.size() + b.size() << '\n';
+}
