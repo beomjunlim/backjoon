@@ -1,0 +1,36 @@
+//반복자 이용해서 for문
+#include <iostream>
+#include <string>
+#include <map>
+using namespace std;
+
+int main()
+{
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+  int n, a;
+  string s1, s2;
+  cin >> n;
+
+  while (n--)
+  {
+    map<string, int> v;
+    int sum = 1;
+    cin >> a;
+    for (int i = 0; i < a; i++)
+    {
+      cin >> s1;
+      cin >> s2;
+      if (v.find(s2) == v.end())
+        v.insert({s2, 1});
+      else
+        v[s2]++;
+    }
+    for (auto i = v.begin(); i != v.end(); i++)
+    {
+      sum *= (i->second + 1);
+    }
+    cout << sum - 1 << '\n';
+  }
+}
