@@ -1,0 +1,32 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+  int t;
+  cin >> t;
+  int x1, x2, y1, y2, r1, r2;
+  for (int i = 0; i < t; i++)
+  {
+    int one = 0;
+    cin >> x1 >> y1 >> r1 >> x2 >> y2 >> r2;
+    one = pow(x1 - x2, 2) + pow(y1 - y2, 2);
+    if (one == 0)
+    {
+      if (pow(r1 - r2, 2) == 0)
+        cout << "-1" << '\n';
+      else
+        cout << "0" << '\n';
+    }
+    else if (one < pow(r1 + r2, 2) && (pow(r1 - r2, 2)) < one)
+      cout << "2" << '\n';
+    else if (one == pow(r1 + r2, 2) || one == pow(r1 - r2, 2))
+      cout << "1" << '\n';
+    else
+      cout << "0" << '\n';
+  }
+}
