@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+  int n, m, a;
+  cin >> n;
+  vector<int> v;
+  for (int i = 0; i < n; i++)
+  {
+    cin >> a;
+    v.push_back(a);
+  }
+  sort(v.begin(), v.end());
+  cin >> m;
+  vector<pair<int, int>> w;
+  for (int i = 0; i < m; i++)
+  {
+    cin >> a;
+    bool isFound = binary_search(v.begin(), v.end(), a);
+    if (isFound)
+      w.push_back({a, 1});
+    else
+      w.push_back({a, 0});
+  }
+  for (int i = 0; i < m; i++)
+  {
+    cout << w[i].second << '\n';
+  }
+}
