@@ -1,0 +1,35 @@
+#include<iostream>
+#include<vector>
+#include<stack>
+#include<algorithm>
+using namespace std;
+
+
+#define MAX 9
+int m, n;
+int arr[MAX] = { 0 };
+bool isVisited[MAX] = { false };
+
+void dfs(int a,int x) {
+	if (x == m) {
+		for (int i = 0; i < m; i++) {
+			cout << arr[i]<<" ";
+		}
+		cout <<'\n';
+		return;
+	}
+	for (int i = a; i <= n; i++) {
+		if (!isVisited[i]) {
+			isVisited[i] = true;
+			arr[x] = i;
+			isVisited[i] = false;
+			dfs(arr[x], x + 1);
+			
+		}
+	}
+}
+
+int main() {
+	cin >> n >> m;
+	dfs(1,0);
+}
