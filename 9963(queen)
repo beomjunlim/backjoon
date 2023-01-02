@@ -1,0 +1,36 @@
+#include<iostream>
+#include<vector>
+#include<stack>
+#include<algorithm>
+using namespace std;
+
+
+#define MAX 15
+int n;
+int arr[MAX] = { 0 };
+int cnt = 0;
+bool check(int a) {
+	for (int i = 0; i < a; i++) {
+		if (arr[i] == arr[a] || abs(arr[a] - arr[i]) == a - i)
+			return false;
+	}
+	return true;
+}
+void dfs(int x) {
+	if (x == n) {
+		cnt++;
+	}
+	else {
+		for (int i = 0; i < n; i++) {
+			arr[x] = i;
+			if (check(x))
+				dfs(x + 1);
+		}
+	}
+}
+
+int main() {
+	cin >> n;
+	dfs(0);
+	cout << cnt << '\n';
+}
