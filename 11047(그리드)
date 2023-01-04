@@ -1,0 +1,24 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+#define MAX 10
+int arr[MAX] = { 0 };
+
+int main() {
+	int n, k;
+	int cnt = 0;
+	cin >> n >> k;
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
+	sort(arr, arr + n, greater<>());
+	for (int i = 0; i < n; i++) {
+		if (k >= arr[i]) {
+			cnt += k / arr[i];
+			k = k % arr[i];
+		}
+		else if (k == 0) break;
+	}
+	cout << cnt;
+}
