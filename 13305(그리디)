@@ -1,0 +1,26 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+long long arr[100001] = { 0 };
+long long price[100001] = { 0 };
+
+int main() {
+	int n;
+	cin >> n;
+	long long sum = 0;
+	for (int i = 0; i < n - 1; i++) {
+		cin >> arr[i];//도시 리터 가격
+	}
+	for (int i = 0; i < n; i++) {
+		cin >> price[i];// 도시 사이 거리
+	}
+	sum += arr[0] * price[0];// 처음 출발할 때 다음 도시까지는 기름 담아야하므로
+	long long cheap = price[0];//가장 싼 도시의 기름 값
+	for (int i = 1; i < n - 1; i++) {
+		if (cheap > price[i])// 더 싼 도시를 찾을 경우 변경
+			cheap = price[i];
+		sum += cheap * arr[i];// 다음 도시로 가는데 기름을 담는다.
+	}
+	cout << sum;
+}
