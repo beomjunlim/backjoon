@@ -1,0 +1,30 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+
+int main() {
+	bool minus = false;
+	string s;
+	cin >> s;
+	int num=0;//숫자
+	int result = 0;// 숫자 합
+	for (int i = 0; i <= s.length(); i++) {
+		if (s[i] == '+' || s[i] == '-'||i==s.length()) {
+			if (minus) {
+				result -= num;//-연산자가 나온 후에는 뒤에 나오는 숫자 모두 빼준다.
+			}
+			else {
+				result += num;
+			}
+			if (s[i] == '-')
+				minus = true;
+			num = 0;//숫자를 연산한 후 num 초기화
+		}
+		else {
+			num *= 10;//숫자가 연속으로 나오면 앞에 나온 숫자는 10곱해준다.
+			num += (s[i] - '0');
+		}
+	}
+	cout << result;
+}
