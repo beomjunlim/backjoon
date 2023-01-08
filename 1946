@@ -1,0 +1,37 @@
+#include <iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+#define MAX 100000
+int arr[MAX] = { 0 };
+
+int main() {
+    int n;// 케이스 변수
+    cin >> n;
+    vector<pair<int, int>> v;
+    int j = 0;//케이스 당 합격한 인원 담는 변수
+    while (j!=n) {
+        int a;// 면접 인원
+        int cnt = 1;//합격 인원 1등은 무조건이므로
+        cin >> a;
+        for (int i = 0; i < a; i++) {
+            int b, c;
+            cin >> b >> c;
+            v.push_back({ b,c });
+        }
+        sort(v.begin(), v.end());//첫번째 변수에 대해서 오름차순 정렬
+        int sw = v[0].second;//1등의 두번째 시험 결과
+        for (int i = 1; i < a; i++) {
+            if (sw > v[i].second) {//첫번 째 시험의 앞 사람보다 두번 째 시험 잘 볼 경우
+                cnt++;// 합격 인원 증가
+                sw = v[i].second;// 기준 마지막 합격한 사람의 두번 째 시험 결과
+            }
+        }
+        arr[j] = cnt;
+        j++;//다음 케이스
+        v.clear();//케이스 끝나고 벡터 정리
+    }
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << '\n';
+    }
+}
