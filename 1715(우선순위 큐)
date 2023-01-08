@@ -1,0 +1,26 @@
+#include <iostream>
+#include<algorithm>
+#include<queue>
+using namespace std;
+
+int main() {
+    int n;
+    int cnt = 0;
+    cin >> n;
+    priority_queue<int, vector<int>, greater<int>>v;// 우선순위 큐 내림차순
+    for (int i = 0; i < n; i++) {
+        int a;
+        cin >> a;
+        v.push(a);
+    }
+    while (v.size()!=1) {
+        int s1, s2;
+        s1 = v.top();
+        v.pop();
+        s2 = v.top();
+        v.pop();
+        v.push(s1 + s2);
+        cnt += (s1 + s2);
+    }
+    cout << cnt;
+}
