@@ -1,0 +1,45 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+int n;
+int graph[25][25];
+vector<int> v;
+int room;
+int dx[] = { 0,0,-1,1 };
+int dy[] = { -1,1,0,0 };//이동할 수 있는 4가지 경우
+
+void dfs(int x, int y) {
+	graph[x][y]=0;
+	room++;//집이 존재하므로 집 변수 증가
+	for (int i = 0; i < 4; i++) {
+		int nx = x + dx[i];
+		int ny = y + dy[i];
+		if (nx < 0 || nx >= n || ny < 0 || ny >= n) continue;// 없으면 틀렸다고 나온다.
+		if (graph[nx][ny] == 1) {
+			dfs(nx, ny);//집이 존재할 경우 재귀호출
+		}
+	}
+}
+int main() {
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++)
+			scanf_s("%1d", &graph[i][j]);//정수1자리씩 입력하기 위해서
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			if (graph[i][j] == 1) {
+				room = 0;
+				dfs(i, j);
+				v.push_back(room);//집의 개수를 벡터에 삽입
+			}
+		}
+	}
+	sort(v.begin(), v.end());
+	cout << v.size() << '\n';
+	for (int i = 0; i < v.size(); i++) {
+		cout << v[i] << '\n';
+	}
+}
