@@ -1,0 +1,57 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int n;
+char graph[101][101];
+bool visited[101][101];
+int dx[] = { 0,0,-1,1 };
+int dy[] = { -1,1,0,0 };
+void dfs(int x, int y) {
+	visited[x][y] = true;
+	for (int i = 0; i < 4; i++) {
+		int nx = x + dx[i];
+		int ny = y + dy[i];
+		if (nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
+		if (graph[x][y] == graph[nx][ny]&&!visited[nx][ny]) {
+			dfs(nx, ny);
+		}
+	}
+}
+int main() {
+	cin >> n;
+	vector<int>v;
+	int cnt = 0;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> graph[i][j];
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			if (!visited[i][j]) {
+				dfs(i, j);
+				cnt++;
+			}
+		}
+	}
+	v.push_back(cnt);
+	cnt = 0;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			visited[i][j] = false;// 방문 기록 초기화
+			if (graph[i][j] == 'G')// G R 구분 못하므로 하나로 바꿈
+				graph[i][j] = 'R';
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			if (!visited[i][j]) {
+				dfs(i, j);
+				cnt++;
+			}
+		}
+	}
+	v.push_back(cnt);
+	cout << v[0] << " " << v[1];
+}// main 함수에서 정상과 색맹인 사람 두번 for문을 돌렸는데 더 간단하게 하는 방법은 
