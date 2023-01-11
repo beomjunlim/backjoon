@@ -1,0 +1,48 @@
+#include<iostream>
+#include<queue>
+#include<vector>
+using namespace std;
+
+int n, m, k;
+int graph[50][50];
+int dx[] = { 0,0,-1,1 };
+int dy[] = { -1,1,0,0 };//상하좌우로 움직일 수 있는 경우
+void dfs(int x, int y) {
+	graph[x][y] = 0;//방문한 곳 0으로 변경
+	for (int i = 0; i < 4; i++) {
+		int nx = x + dx[i];
+		int ny = y + dy[i];
+		if (nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
+		if (graph[nx][ny] == 0) continue;
+		if (graph[nx][ny] == 1) {//4가지 중 만족하는 경우
+			dfs(nx, ny);//호출해서 주변에 1이 없을때 까지 확인
+		}
+	}
+}
+int main() {
+	int T;
+	vector<int>v;
+	cin >> T;
+	while (T > 0) {
+		cin >> m >> n >> k;
+		int cnt = 0;
+		for (int i = 0; i < k; i++) {
+			int a, b;
+			cin >> a >> b;
+			graph[a][b] = 1;
+		}
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (graph[i][j] == 1) {
+					dfs(i, j);
+					cnt++;
+				}
+			}
+		}
+		v.push_back(cnt);
+		T--;
+	}
+	for (int i = 0; i < v.size(); i++) {
+		cout << v[i] << '\n';
+	}
+}
