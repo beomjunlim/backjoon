@@ -1,0 +1,35 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+int n, m;
+vector<int>graph[1001];
+bool visited[1001] = {false};
+
+void dfs(int x) {
+	visited[x] = true;
+	for (int i = 0; i < graph[x].size(); i++) {
+		int y = graph[x][i];
+		if (!visited[y]) {//방문하지 않았을 경우 호출
+			dfs(y);
+		}
+	}
+}
+
+int main() {
+	cin >> n;
+	cin >> m;
+	int cnt=0;
+	for (int i = 0; i < m; i++) {
+		int a, b;
+		cin >> a >> b;
+		graph[a].push_back(b);
+		graph[b].push_back(a);// 서로 연결되어 있으므로 
+	}
+	for (int i = 1; i <= n; i++) {
+		if (!visited[i]) {
+			dfs(i);
+			cnt++;// 한세트 연결됬으므로 ++
+		}
+	}
+	cout << cnt;
+}
