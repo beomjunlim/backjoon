@@ -1,0 +1,57 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+int n;
+int graph[100][100];
+int dx[] = { 0,0,1,-1 };
+int dy[] = { 1,-1,0,0 };
+bool visited[100][100];
+
+void inital() {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++)
+			visited[i][j] = false;
+	}
+}//방문한 기록 초기화
+
+void dfs(int x, int y,int min) {
+	visited[x][y] = true;
+	for (int i = 0; i < 4; i++) {
+		int nx = x + dx[i];
+		int ny = y + dy[i];
+		if (nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
+		if (graph[nx][ny] > min&&visited[nx][ny]==false)
+			dfs(nx, ny,min);
+	}
+}
+int main() {
+	cin >> n;
+	int max = 0;
+	vector<int>v;
+	int key=0;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> graph[i][j];
+			if (max < graph[i][j])
+				max = graph[i][j];
+		}
+	}
+	while (key <= max) {//최대 물 높이까지 한번씩 기록
+		inital();
+		int result = 0;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (graph[i][j] > key&&visited[i][j]==false) {
+					dfs(i, j, key);
+					result++;
+				}
+			}
+		}
+		v.push_back(result);
+		key++;
+	}
+	sort(v.begin(), v.end(), greater<>());//기록중 가장 큰 값을 출력
+	cout << v[0];
+}
