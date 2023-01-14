@@ -1,0 +1,34 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+int r, c;
+int sum = 0;
+char graph[20][20];
+bool visited[20];
+int dx[] = { 0,0,-1,1 };
+int dy[] = { -1,1,0,0 };
+void dfs(int x, int y,int cnt) {
+	sum = max(sum, cnt);//밟을 수 있는 경우 중 더 큰 경우
+	visited[graph[x][y] - 'A'] = true;
+	for (int i = 0; i < 4; i++) {
+		int nx = x + dx[i];
+		int ny = y + dy[i];
+		if (nx < 0 || nx >= r || ny < 0 || ny >= c) continue;
+		if (visited[graph[nx][ny] - 'A'] == false) {
+			dfs(nx, ny,cnt+1);
+			visited[graph[nx][ny] - 'A'] = false;//다시 초기화
+		}
+	}
+}
+int main() {
+	cin >> r >> c;
+	for (int i = 0; i < r; i++) {
+		for (int j = 0; j < c; j++) {
+			cin >> graph[i][j];
+		}	
+	}
+	dfs(0, 0,1);
+	cout << sum;
+}
