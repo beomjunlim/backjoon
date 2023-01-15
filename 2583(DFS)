@@ -1,0 +1,53 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+int m,n, k;
+int graph[101][101]={0};
+int area=0;// 넓이
+int num=0;// 분리된 영역 개수
+int dx[] = { 0,0,-1,1 };
+int dy[] = { -1,1,0,0 };// 움직일 수 있는 경우의 수
+
+void dfs(int y, int x) {
+	graph[y][x]++;
+	area++;//넓이 1씩 증가
+	for (int i = 0; i < 4; i++) {
+		int nx = x + dx[i];
+		int ny = y + dy[i];
+		if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+		if (graph[ny][nx] == 0) {
+			dfs(ny, nx);
+		}
+	}
+}
+int main() {
+	vector<int>v;
+	cin >> m >> n >> k;
+	while (k > 0) {
+		int a, b, c, d;
+		cin >> a >> b >> c >> d;
+		for (int i = b; i < d; i++) {
+			for (int j = a; j < c; j++) {
+				graph[i][j]++;//제외되는 영역의 숫자 증가
+			}
+		}
+		k--;
+	}
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			if (graph[i][j] == 0) {//영역이 0일 경우 제외되지 않은 영역 표시
+				dfs(i, j);
+				num++;//한 영역이 생겼으니 1 증가
+				v.push_back(area);
+				area = 0;
+			}
+		}
+	}
+	sort(v.begin(), v.end());
+	cout << num << '\n';
+	for (int i = 0; i < v.size(); i++) {
+		cout << v[i] << " ";
+	}
+}
