@@ -1,0 +1,27 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int dp[1000000];
+int DP(int x) {
+	dp[1] = 1;
+	dp[2] = 2;
+	dp[3] = 4;
+	for (int i = 4; i <= x; i++) {
+		dp[i] = dp[i - 3] + dp[i - 2] + dp[i - 1];//1,2,3 더해서 나올 수 있는 점화식
+	}
+	return dp[x];
+}
+int main() {
+	vector<int> m;
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		int a;
+		cin >> a;
+		m.push_back(DP(a));
+	}
+	for (int i = 0; i < n; i++) {
+		cout << m[i] << '\n';
+	}
+}
