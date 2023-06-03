@@ -1,0 +1,35 @@
+#include<iostream>
+#include<string>
+#include<stack>
+ 
+using namespace std;
+ 
+int main()
+{
+    int T;        //테스트 케이스
+    string sentence;    //문장 (길이 최대 1000) 단어길이: 20
+    stack <char> st;    //단어를 뒤집기 위한 스택
+ 
+    cin >> T;
+    cin.ignore();    //버퍼 비우기 cin 사용 후 getline 사용하기 위해서 개행문자를 제거하고 정확하게 입력하기 위해서
+    while (T--)
+    {
+        getline(cin, sentence);
+        sentence += ' ';//getline에는 개행문자가 없을 수 있으므로 단어단위로 끊기위해서 넣어준다.
+ 
+        for (int i = 0; i < sentence.size(); i++)
+        {
+            if (sentence[i] == ' ')//공백을 만났을 경우 단어 스택에 넣어주어 역순으로 출력
+            {
+                while (!st.empty())
+                {
+                    cout << st.top();
+                    st.pop();
+                }cout << ' ';
+            }
+            else 
+                st.push(sentence[i]);
+        }cout << "\n";
+    }
+ 
+}
