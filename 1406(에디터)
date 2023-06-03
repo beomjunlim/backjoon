@@ -1,0 +1,50 @@
+#include<iostream>
+#include<string>
+#include<stack>
+using namespace std;
+
+int main() {
+	stack<char> st;
+	stack<char> bl;
+	string s;
+	int n;
+	char cmd;
+	cin >> s;
+	cin >> n;
+	for (int i = 0; i < s.size(); i++) {
+		st.push(s[i]);
+	}
+	while (n != 0) {
+		cin >> cmd;
+		if ( cmd== 'P') {
+			char s;
+			cin >> s;
+			st.push(s);
+		}
+		if (cmd=='L') {
+			if (!st.empty()) {
+				bl.push(st.top());
+				st.pop();
+			}	
+		}
+		if (cmd=='D') {
+			if (!bl.empty()) {
+				st.push(bl.top());
+				bl.pop();
+			}
+		}
+		if (cmd == 'B') {
+			if (!st.empty())
+				st.pop();
+		}
+		n--;
+	}
+	while (!st.empty()) {
+		bl.push(st.top());
+		st.pop();
+	}
+	while (!bl.empty()) {
+		cout << bl.top();
+		bl.pop();
+	}
+}
