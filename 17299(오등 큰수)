@@ -1,0 +1,54 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+#define MAX 1000001
+int arr[MAX];// 숫자 입력
+int ans[MAX];// 정답 출력
+int num[MAX] = {0};// 숫자 나오는 횟수
+
+int main()
+{
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+
+  stack<int> st; // 값 비교하며 횟수가 더 많이 나오는 경우 저장
+  int n;
+  cin >> n;
+
+  for (int i = 0; i < n; i++)
+  {
+    cin >> arr[i];
+    num[arr[i]]++;// 숫자 입력하며 몇번 나왔는지 저장
+  }
+
+  for (int i = n - 1; i >= 0; i--)
+  {
+    int p = arr[i];// 비교할 숫자
+    while (!st.empty())// 스택이 비어있지않다면 스택에 저장된 값과 비교
+    {
+      int top = st.top();
+      if (num[p] >= num[top])
+      {
+        st.pop();// 비교할 숫자가 횟수가 더 많다면 이전에 저장된 값 팝
+      }
+      else
+      {
+        ans[i] = top;// 가장 먼저 나오는 값
+        break;
+      }
+    }
+    if (st.empty())// 스택이 비어있다면 비교할 숫자가 횟수 가장 높음
+    {
+      ans[i] = -1;
+    }
+    st.push(p);
+  }
+
+  for (int i = 0; i < n; i++)
+  {
+    cout << ans[i] << " ";
+  }
+  cout << '\n';
+}
