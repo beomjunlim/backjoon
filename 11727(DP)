@@ -1,0 +1,18 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int dp[1000000];
+
+int main()
+{
+  int n;
+  cin >> n;
+  dp[1] = 1;
+  dp[2] = 3;
+  for (int i = 3; i <= n; i++)
+  {
+    dp[i] = (dp[i - 1] + dp[i - 2] * 2) % 10007; // 2x2 2x1두개로 표현 가능하므로 *2 추가함
+  }
+  cout << dp[n];
+}
