@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+int dp[1000000]; // 카드 i개를 살 때 최소 금액
+int p[10001];    // i개 들어간 카드의 금액
+
+int main()
+{
+  int n;
+  cin >> n;
+  for (int i = 1; i <= n; i++)
+  {
+    cin >> p[i];
+    dp[i] = p[i];
+  }
+
+  for (int i = 2; i <= n; i++)
+  {
+    for (int j = 1; j <= i; j++)
+    {
+      if (dp[i] > dp[i - j] + p[j]) // 총 i개의 카드일 때 최소 값을 구해야 하므로 j개의 카드를 마지막에 살 때는 i-j개를 살 때 최소 값에다 더한 값과 비교
+        dp[i] = dp[i - j] + p[j];   // 점화식
+    }
+  }
+  cout << dp[n] << '\n';
+}
