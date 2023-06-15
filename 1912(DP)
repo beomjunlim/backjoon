@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+
+#define MAX 100000
+
+int dp[MAX];// i번째까지 왔을 때 연속된 숫자합의 최대값
+int D[MAX];// i번째 숫자
+
+int main()
+{
+  int n;
+  int max;// 연속합의 최대
+  cin >> n;
+  for (int i = 0; i < n; i++)
+  {
+    cin >> D[i];
+  }
+
+  dp[0] = D[0];// 첫번째 dp는 첫번째 숫자와 같으므로
+  max = dp[0];
+
+  for (int i = 1; i < n; i++)
+  {
+    if (D[i] < dp[i - 1] + D[i])// 연속합이 더 클 경우
+      dp[i] = dp[i - 1] + D[i];
+    else
+      dp[i] = D[i];// 연속합보다 다음 숫자 하나만 있는게 더 큰 경우
+    if (max < dp[i])// 기존 max보다 업데이트된 dp값이 클 경우
+      max = dp[i];
+  }
+  cout << max << '\n';
+}
