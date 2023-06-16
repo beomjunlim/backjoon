@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+#define MAX 100000
+
+int dp[MAX]; // i번째 숫자 제곱수로 나타낼 수 있는 최소항
+
+int main()
+{
+  int n;
+  cin >> n;
+
+  for (int i = 1; i <= n; i++)
+  {
+    dp[i] = i;// 1로만 나타낼 경우로 업데이트
+    for (int j = 1; j * j <= i; j++)// 가장 가까운 제곱수를 찾음
+    {
+      if (dp[i] > dp[i - j * j] + 1)// 점화식을 통해 업데이트
+        dp[i] = dp[i - j * j] + 1;
+    }
+  }
+  cout << dp[n] << '\n';
+}
