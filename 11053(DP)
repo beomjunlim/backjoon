@@ -1,0 +1,36 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+#define MAX 1001
+
+int dp[MAX];
+int buf[MAX];
+
+int main()
+{
+  int n;
+  cin >> n;
+  for (int i = 1; i <= n; i++)
+  {
+    cin >> buf[i];
+    dp[i] = 1;
+  }
+
+  int max_num = 0;
+
+  for (int i = 1; i <= n; i++)
+  {
+    for (int j = 1; j < i; j++)
+    {
+      if (buf[i] > buf[j])
+      {
+        dp[i] = max(dp[j] + 1, dp[i]); // i번째 길이의 수열 중 i보다 작은 j번째 인덱스 참고하며 업데이트
+      }
+    }
+    if (dp[i] > max_num)
+      max_num = dp[i];
+  }
+
+  cout << max_num << '\n';
+}
