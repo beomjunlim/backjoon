@@ -1,0 +1,32 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+#define MAX 1001
+
+int dp[MAX];
+int buf[MAX];
+
+int main()
+{
+  int n;
+  cin >> n;
+  for (int i = 1; i <= n; i++)
+  {
+    cin >> buf[i];
+    dp[i] = buf[i];
+  }
+
+  for (int i = 1; i <= n; i++)
+  {
+    for (int j = 1; j < i; j++)
+    {
+      if (buf[j] < buf[i])
+      {
+        dp[i] = max(dp[j] + buf[i], dp[i]);
+      }
+    }
+  }
+  sort(dp + 1, dp + n + 1);
+  cout << dp[n] << '\n';
+}
