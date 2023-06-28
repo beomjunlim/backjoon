@@ -1,0 +1,43 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+  int buf[9];
+  int result = 0;
+  int x, y;
+  for (int i = 0; i < 9; i++)
+  {
+    cin >> buf[i];
+    result += buf[i];
+  }
+
+  sort(buf, buf + 9);
+
+  for (int i = 0; i < 9; i++)
+  {
+    result -= buf[i];
+    for (int j = i + 1; j < 9; j++)
+    {
+      result -= buf[j];
+      if (result == 100)
+      {
+        x = i;
+        y = j;
+        break;
+      }
+      else
+      {
+        result += buf[j];
+      }
+    }
+    result += buf[i];
+  }
+
+  for (int i = 0; i < 9; i++)
+  {
+    if (i != x && i != y)
+      cout << buf[i] << '\n';
+  }
+}
