@@ -1,0 +1,78 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+#define MAX 51
+
+int max_candy = 0;
+char buf[MAX][MAX];
+int n;
+
+void Count()// 캔디 세는 함수
+{
+  for (int i = 0; i < n; i++)// 같은 행의 열들을 비교
+  {
+    int num = 1;
+    for (int j = 0; j < n - 1; j++)
+    {
+      if (buf[i][j] == buf[i][j + 1])
+        num++;// 같으면 증가
+      else
+      {
+        max_candy = max(max_candy, num);// 다를시 최대 사탕 업데이트
+        num = 1;// 초기화
+      }
+    }
+    max_candy = max(max_candy, num);// 같은 행의 열들이 모두 같을 때 업데이트가 안되므로
+  }
+
+  for (int i = 0; i < n; i++)// 
+  {
+    int num = 1;
+    for (int j = 0; j < n - 1; j++)
+    {
+      if (buf[j][i] == buf[j + 1][i])
+        num++;
+      else
+      {
+        max_candy = max(max_candy, num);
+        num = 1;
+      }
+    }
+    max_candy = max(max_candy, num);
+  }
+}
+
+int main()
+{
+  cin >> n;
+
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = 0; j < n; j++)
+    {
+      cin >> buf[i][j];
+    }
+  }
+
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = 0; j < n - 1; j++)
+    {
+      if (buf[i][j] != buf[i][j + 1])
+      {
+        swap(buf[i][j], buf[i][j + 1]);
+        Count();
+        swap(buf[i][j], buf[i][j + 1]);
+      }
+      if (buf[j][i] != buf[j + 1][i])
+      {
+        swap(buf[j][i], buf[j + 1][i]);
+        Count();
+        swap(buf[j][i], buf[j + 1][i]);
+      }
+    }
+  }
+
+  cout << max_candy << '\n';
+}
